@@ -1,2 +1,0 @@
-# vueadmin
-vueadmin
