@@ -1,4 +1,3 @@
-## vue-admin-permission
 项目基于vue-cli3.0进行搭建，并使用了vue全家桶vue vuex axios vue-router elementui，增加了按钮级别的权限控制
 
 
@@ -36,5 +35,3 @@
   
    #### 温馨提示
    在新增vue页面的时候，热更新可能会失效，重启一下项目
-  
-### <a target="_blank" href="http://www.randy168.com">个人博客系统:www.randy168.com</a>
