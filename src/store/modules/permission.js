@@ -47,6 +47,7 @@ export default {
             commit('SET_ACCOUNT', permissionList.name)
             permissionList.data.push('yuekeju-role-manage')
             permissionList.data.push('menu_manage')
+            permissionList.data.push('managerSysUser')
             let routes = recursionRouter(permissionList.data, dynamicRouter)
             let MainContainer = DynamicRoutes.find(v => v.path === '')
             let children = MainContainer.children

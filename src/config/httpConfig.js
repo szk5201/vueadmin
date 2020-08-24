@@ -8,7 +8,7 @@ var instance = axios.create({
     timeout: 5000,
     baseURL,
     validateStatus(status) {
-         let loading
+        let loading
         switch (status) {
         case 400:
             Message.error('请求出错')
@@ -122,17 +122,23 @@ http.yuekejuGet = function(url, options) {
                     loading = document.getElementById('ajaxLoading')
                     loading.style.display = 'none'
                 }
-              if (response.isSuccess) {
-                  resolve(response.returnDate)
-              } else {
-                  Message.error({
-                      message: response.message
-                  })
-                  reject(response.message)
-              }
+                if (response.isSuccess) {
+                    resolve(response.returnDate)
+                } else {
+                    Message.error({
+                        message: response.message
+                    })
+                    reject(response.message)
+                }
             })
             .catch(e => {
-                console.log(e)
+                if (!options || options.isShowLoading !== false) {
+                    loading = document.getElementById('ajaxLoading')
+                    loading.style.display = 'none'
+                }
+                Message.error({
+                    message: '请求超时！'
+                })
             })
     })
 }
@@ -160,7 +166,13 @@ http.yuekejuPost = function(url, data, options) {
                 }
             })
             .catch(e => {
-                console.log(e)
+                if (!options || options.isShowLoading !== false) {
+                    loading = document.getElementById('ajaxLoading')
+                    loading.style.display = 'none'
+                }
+                Message.error({
+                    message: '请求超时！'
+                })
             })
     })
 }
@@ -175,7 +187,7 @@ http.yuekejuDelete = function(url, data, options) {
         instance
             .delete(url, data, options)
             .then(response => {
-                debugger;
+                debugger
                 if (!options || options.isShowLoading !== false) {
                     loading = document.getElementById('ajaxLoading')
                     loading.style.display = 'none'
@@ -190,7 +202,13 @@ http.yuekejuDelete = function(url, data, options) {
                 }
             })
             .catch(e => {
-                console.log(e)
+                if (!options || options.isShowLoading !== false) {
+                    loading = document.getElementById('ajaxLoading')
+                    loading.style.display = 'none'
+                }
+                Message.error({
+                    message: '请求超时！'
+                })
             })
     })
 }

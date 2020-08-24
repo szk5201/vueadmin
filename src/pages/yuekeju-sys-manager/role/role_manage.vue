@@ -88,7 +88,13 @@ export default {
             this.init()
         },
         handleReset: function() {
-            this.$router.push({ name: 'insertRole' })
+            var length = this.$refs.singleTable.selection.length
+            if (length === 0 || length > 1) {
+                this.$message.error('请选择一条需要修改数据!')
+                return
+            }
+            var selection = this.$refs.multipleTable.selection[0]
+            this.$router.push({ name: 'insertRole', params: { 'yuekejuCode': selection.yuekejuCode } })
         }
     }
 }

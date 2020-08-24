@@ -11,10 +11,10 @@ import axios from './config/httpConfig'
 import * as globalFilter from './filters/filters'
 import '@/icons'
 import vxeTable from './base/vxeTable.js'
-//import VXETable from 'vxe-table'
+// import VXETable from 'vxe-table'
 import 'vxe-table/lib/index.css'
-
-Vue.prototype.$http = axios
+import compoent from './components/index.js'
+import XEAjax from 'xe-ajax'
 
 for (var key in globalFilter) {
     Vue.filter(key, globalFilter[key])
@@ -22,7 +22,10 @@ for (var key in globalFilter) {
 
 Vue.use(ElementUI)
 Vue.use(vxeTable)
-//Vue.use(VXETable)
+Vue.use(compoent)
+
+Vue.prototype.$XEAjax = XEAjax
+Vue.prototype.$http = axios
 Vue.config.productionTip = false
 
 router.beforeEach((to, from, next) => {

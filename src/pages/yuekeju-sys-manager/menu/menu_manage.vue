@@ -108,17 +108,33 @@ export default {
                 this.$message.error('请选择一条需要修改数据!')
                 return
             }
-            var selection = this.$refs.multipleTable.selection
-            var arrayList = new Array()
-            for (let i = 0; i < selection.length; i++) {
-                if (typeof (selection[i].yuekejuCode) !== 'undefined') {
-                    arrayList.push(selection[i].yuekejuCode)
+            this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                var selection = this.$refs.multipleTable.selection
+                // eslint-disable-next-line no-array-constructor
+                var arrayList = new Array()
+                for (let i = 0; i < selection.length; i++) {
+                    if (typeof (selection[i].yuekejuCode) !== 'undefined') {
+                        arrayList.push(selection[i].yuekejuCode)
+                    }
                 }
-            }
-            var object = {}
-            object.id = arrayList
-            deletePermission(arrayList).then(res => {
-                console.log(res)
+                var object = {}
+                object.id = arrayList
+                deletePermission(arrayList).then(res => {
+                    this.init()
+                    this.$message({
+                        type: 'success',
+                        message: '删除成功'
+                    })
+                })
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: '已取消删除'
+                })
             })
         }
     }

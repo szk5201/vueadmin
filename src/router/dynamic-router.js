@@ -19,7 +19,7 @@ const RoleManage = () => import('@/pages/permission/role-manage')
 const YuekejuRoleManage = () => import('@/pages/yuekeju-sys-manager/role/role_manage')
 const MenuManage = () => import('@/pages/permission/menu-manage')
 const menu_manage = () => import('@/pages/yuekeju-sys-manager/menu/menu_manage')
-
+const managerSysUser = () => import('@/pages/yuekeju-sys-manager/manager-user/managerSysUser')
 /* 需要权限判断的路由 */
 const dynamicRoutes = [
     {
@@ -160,6 +160,15 @@ const dynamicRoutes = [
                 component: menu_manage,
                 meta: {
                     name: '菜单管理1',
+                    icon: 'tree'
+                }
+            },
+            {
+                path: 'managerSysUser',
+                name: 'managerSysUser',
+                component: managerSysUser,
+                meta: {
+                    name: '管理员管理',
                     icon: 'tree'
                 }
             }

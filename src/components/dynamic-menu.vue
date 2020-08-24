@@ -1,5 +1,5 @@
 <template>
-  <div class='menu-container'>
+<div class='menu-container'>
     <template v-for='v in menuList'>
       <el-submenu
         :index='v.name'
