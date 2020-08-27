@@ -24,6 +24,11 @@ const pageHandle = {
             pageSize: this.pagerConfigIn.pageSize
         }
         self.$emit('loadTable', searchParams, this)
+    },
+    getTableObj() {
+        let obj = null
+        obj = this.$ref.refname
+        return obj
     }
 }
 export default {

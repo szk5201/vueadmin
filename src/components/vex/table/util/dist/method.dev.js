@@ -31,6 +31,11 @@ var pageHandle = {
       pageSize: this.pagerConfigIn.pageSize
     };
     self.$emit('loadTable', searchParams, this);
+  },
+  getTableObj: function getTableObj() {
+    var obj = null;
+    obj = this.$ref.refname;
+    return obj;
   }
 };
 

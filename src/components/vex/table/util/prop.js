@@ -1,5 +1,4 @@
 import tableGlobalConfigIn from './data.js'
-console.log(tableGlobalConfigIn.tableGlobalConfigIn.exportConfig)
 export default {
     // 表字段配置
     tableColumnConfig: {

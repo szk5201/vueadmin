@@ -9,7 +9,6 @@ var _data = _interopRequireDefault(require("./data.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-console.log(_data["default"].tableGlobalConfigIn.exportConfig);
 var _default2 = {
   // 表字段配置
   tableColumnConfig: {

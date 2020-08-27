@@ -13,7 +13,7 @@ export default {
             { field: 'creater', title: '创建人' },
             { field: 'updateTime', title: '修改时间' },
             { field: 'modified', title: '修改人' },
-            { field: 'disableStatus', title: '状态', cellRender: { name: '$switch' } }
+            { field: 'disableStatus', title: '状态', cellRender: { name: '$switch', events: { change: function () { } } } }
         ],
         tableFormConfig: [
             { field: 'name', title: '名称', itemRender: { name: 'input', attrs: { placeholder: '请输入名称' } } },
@@ -30,5 +30,7 @@ export default {
             { itemRender: { name: '$button', props: { content: '查询', type: 'submit', status: 'primary' } } },
             { itemRender: { name: '$button', props: { content: '重置', type: 'reset' } } }
         ]
+
     }
+
 }

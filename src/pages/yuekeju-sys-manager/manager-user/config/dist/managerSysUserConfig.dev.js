@@ -46,7 +46,10 @@ var _default = {
       field: 'disableStatus',
       title: '状态',
       cellRender: {
-        name: '$switch'
+        name: '$switch',
+        events: {
+          change: function change() {}
+        }
       }
     }],
     tableFormConfig: [{

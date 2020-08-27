@@ -30,7 +30,7 @@
           :valid-config="validConfig"
           :animat="animat"
           :zoom-config="zoomConfig"
-          :ref="refname"
+          ref="refname"
           :keep-source="keepSource"
           @toolbar-button-click="toolbarButtonClickEvent"
           @button-click="buttonClick">
@@ -87,7 +87,7 @@ export default {
         // 点击按钮事件
         buttonClick: function(code, e) {
             // this.$emit('buttonClick', val, e)
-            if (code === 'insert_actived') {
+            if (code === 'add_actived') {
                 this.insertClick(code, e)
             } else if (code === 'update_actived') {
                 this.updateClick(code, e)
@@ -108,6 +108,9 @@ export default {
         },
         otherClick: function(code, e) {
             this.$emit('otherClick', code, e)
+        },
+        disableChanageEvent: function(e) {
+            console.log('111')
         }
     },
     props: {

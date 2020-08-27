@@ -18,12 +18,14 @@
           <el-table-column
             prop="permissionName"
             label="菜单名称"
+            :show-overflow-tooltip="true"
             sortable
             width="200">
           </el-table-column>
           <el-table-column
             prop="permissionParentName"
             label="上级菜单名称"
+            :show-overflow-tooltip="true"
             sortable
             width="180">
           </el-table-column>
@@ -48,10 +50,12 @@
           </el-table-column>
           <el-table-column
             prop="permissionUrl"
+            :show-overflow-tooltip="true"
             label="菜单URL" width="300">
           </el-table-column>
           <el-table-column
             prop="permissionPerms"
+            :show-overflow-tooltip="true"
             label="授权标识">
           </el-table-column>
         </el-table>

@@ -48,3 +48,6 @@ export function insertPermission(data) {
 export function deletePermission(data) {
     return axios.yuekejuPost('/v1/yuekejuPermission/deletePermission', data)
 }
+export function findByUser(data) {
+    return axios.yuekejuGet('/v1//manage/user/findUserAllBySearch')
+}
