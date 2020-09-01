@@ -8,7 +8,7 @@ import Layout from '@/pages/layout/index'
 import Home from '@/pages/home/index'
 import insertRole from '@/pages/yuekeju-sys-manager/role/insertRole'
 import insertMenu from '@/pages/yuekeju-sys-manager/menu/menu_insert'
-
+import insertmanagerSysUser from '@/pages/yuekeju-sys-manager/manager-user/insertmanagerSysUser'
 Vue.use(Router)
 
 /* 初始路由 */
@@ -69,6 +69,15 @@ export const DynamicRoutes = [
                 path: 'insertMenu',
                 component: insertMenu,
                 name: 'insertMenu',
+                meta: {
+                    name: '添加权限页面',
+                    icon: 'tree'
+                }
+            }, {
+                id: 2,
+                path: 'insertmanagersysuser',
+                component: insertmanagerSysUser,
+                name: 'insertmanagersysuser',
                 meta: {
                     name: '添加权限页面',
                     icon: 'tree'

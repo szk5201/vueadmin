@@ -17,7 +17,6 @@ exports.findAllByMenu = findAllByMenu;
 exports.findByCode = findByCode;
 exports.insertPermission = insertPermission;
 exports.deletePermission = deletePermission;
-exports.findByUser = findByUser;
 
 var _httpConfig = _interopRequireDefault(require("@/config/httpConfig"));
 
@@ -82,8 +81,4 @@ function insertPermission(data) {
 
 function deletePermission(data) {
   return _httpConfig["default"].yuekejuPost('/v1/yuekejuPermission/deletePermission', data);
-}
-
-function findByUser(data) {
-  return _httpConfig["default"].yuekejuGet('/v1//manage/user/findUserAllBySearch');
 }

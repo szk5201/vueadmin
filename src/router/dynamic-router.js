@@ -18,8 +18,9 @@ const UserManage = () => import('@/pages/permission/user-manage')
 const RoleManage = () => import('@/pages/permission/role-manage')
 const YuekejuRoleManage = () => import('@/pages/yuekeju-sys-manager/role/role_manage')
 const MenuManage = () => import('@/pages/permission/menu-manage')
-const menu_manage = () => import('@/pages/yuekeju-sys-manager/menu/menu_manage')
+const menuManage = () => import('@/pages/yuekeju-sys-manager/menu/menu_manage')
 const managerSysUser = () => import('@/pages/yuekeju-sys-manager/manager-user/managerSysUser')
+const deptmanager = () => import('@/pages/yuekeju-sys-manager/dept/deptmanager')
 /* 需要权限判断的路由 */
 const dynamicRoutes = [
     {
@@ -157,9 +158,18 @@ const dynamicRoutes = [
             {
                 path: 'menu_manage',
                 name: 'menu_manage',
-                component: menu_manage,
+                component: menuManage,
                 meta: {
                     name: '菜单管理1',
+                    icon: 'tree'
+                }
+            },
+            {
+                path: 'deptmanager',
+                name: 'deptmanager',
+                component: deptmanager,
+                meta: {
+                    name: '组织机构管理',
                     icon: 'tree'
                 }
             },

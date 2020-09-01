@@ -65,7 +65,7 @@ export default {
                         return
                     }
                     for (var i = 0; i < permission.length; i++) {
-                        var object = new Object()
+                        var object = {}
                         object.permissionId = permission[i]
                         that.submitForm.rolePermisionList[i] = object
                     }

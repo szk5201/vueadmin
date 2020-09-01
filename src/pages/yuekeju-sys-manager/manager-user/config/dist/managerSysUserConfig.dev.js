@@ -6,52 +6,6 @@ Object.defineProperty(exports, "__esModule", {
 exports["default"] = void 0;
 var _default = {
   managerSysUserConfig: {
-    tableColumnConfig: [//  type: seq 序号  checkbox复选框 radio单选框 expand展开行
-    {
-      type: 'seq',
-      width: 60
-    }, {
-      type: 'checkbox',
-      width: 60
-    }, {
-      field: 'loginName',
-      title: '登录名'
-    }, {
-      field: 'name',
-      title: '名称',
-      sortable: true
-    }, {
-      field: 'sex',
-      title: '性别'
-    }, {
-      field: 'userNumber',
-      title: '用户号',
-      sortable: true
-    }, {
-      field: 'userLockStatus',
-      title: '锁定状态'
-    }, {
-      field: 'createTime',
-      title: '创建时间'
-    }, {
-      field: 'creater',
-      title: '创建人'
-    }, {
-      field: 'updateTime',
-      title: '修改时间'
-    }, {
-      field: 'modified',
-      title: '修改人'
-    }, {
-      field: 'disableStatus',
-      title: '状态',
-      cellRender: {
-        name: '$switch',
-        events: {
-          change: function change() {}
-        }
-      }
-    }],
     tableFormConfig: [{
       field: 'name',
       title: '名称',
@@ -65,24 +19,15 @@ var _default = {
       field: 'userLockStatus',
       title: '锁定状态',
       itemRender: {
-        name: 'select',
+        name: '$select',
         options: [{
-          key: '',
-          value: {
-            value: ''
-          },
+          value: '',
           label: ''
         }, {
-          key: '0',
-          value: {
-            value: '0'
-          },
+          value: '0',
           label: '未锁定'
         }, {
-          key: '1',
-          value: {
-            value: '1'
-          },
+          value: '1',
           label: '锁定'
         }]
       }

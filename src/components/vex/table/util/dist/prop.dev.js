@@ -29,7 +29,7 @@ var _default2 = {
     type: Array,
     "default": function _default() {
       return [{
-        code: 'insert_actived',
+        code: 'add_actived',
         name: '新增',
         status: 'primary',
         icon: 'fa fa-plus',
@@ -254,6 +254,16 @@ var _default2 = {
     "default": function _default() {
       return false;
     }
+  },
+  total: {
+    type: Number,
+    "default": function _default() {
+      return 0;
+    }
+  },
+  tableFormData: {
+    type: Object,
+    "default": function _default() {}
   }
 };
 exports["default"] = _default2;

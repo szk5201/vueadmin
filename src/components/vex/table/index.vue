@@ -33,17 +33,22 @@
           ref="refname"
           :keep-source="keepSource"
           @toolbar-button-click="toolbarButtonClickEvent"
-          @button-click="buttonClick">
+          @button-click="buttonClick"
+          @page-change="handlePageChange"
+          @form-submit="formSubmit"
+          @form-reset="formReset">
         </vxe-grid>
 </template>
 <script>
 import propsConfig from './util/prop.js'
-// import tableGlobalConfigIn from './util/data.js'
+import methodsconfig from './util/method.js'
+import tableGlobalConfigIn from './util/data.js'
 export default {
     data () {
         return {
             tableForm:
             {
+                data: this.tableFormData,
                 items: this.tableFormConfig
             },
             tableToolbar:
@@ -54,7 +59,9 @@ export default {
                  import: this.import,
                  buttons: this.tableToolBarButton
              },
-            tableColumn: this.tableColumnConfig
+            tableColumn: this.tableColumnConfig,
+            tablePage: tableGlobalConfigIn.tableGlobalConfigIn.tablePage
+
         }
     },
     created () {
@@ -78,24 +85,25 @@ export default {
         cellClick: function(obj, e) {
             this.$emit('checkboxAll', obj, e)
         },
-        toolbarButtonClickEvent: function(e) {
-            this.$emit('toolbarButtonClickEvent', e)
+        toolbarButtonClickEvent: function(data, e) {
+            if (data.code === 'add_actived') {
+                this.insertClick(data, e)
+            } else if (data.code === 'update_actived') {
+                this.updateClick(data, e)
+            } else if (data.code === 'delete_actived') {
+                this.deleteClick(data, e)
+            } else {
+                this.otherClick(data, e)
+            }
         },
         insertEvent: function() {
             this.$emit('insertEvent')
         },
         // 点击按钮事件
         buttonClick: function(code, e) {
+            console.log(code)
+            console.log(e)
             // this.$emit('buttonClick', val, e)
-            if (code === 'add_actived') {
-                this.insertClick(code, e)
-            } else if (code === 'update_actived') {
-                this.updateClick(code, e)
-            } else if (code === 'delete_actived') {
-                this.deleteClick(code, e)
-            } else {
-                this.otherClick(code, e)
-            }
         },
         insertClick: function(code, e) {
             this.$emit('insertClick', code, e)
@@ -109,9 +117,13 @@ export default {
         otherClick: function(code, e) {
             this.$emit('otherClick', code, e)
         },
-        disableChanageEvent: function(e) {
-            console.log('111')
-        }
+        formSubmit: function(data, e) {
+            this.$emit('formSubmit', data, e)
+        },
+        formReset: function(data, e) {
+            this.$emit('formReset', data, e)
+        },
+        ...methodsconfig
     },
     props: {
         ...propsConfig

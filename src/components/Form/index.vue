@@ -1,10 +1,11 @@
 <template>
       <el-container>
         <el-aside>
-            <el-tree  ref="tree" :data="data" highlight-current show-checkbox node-key="yuekejuCode" :props="defaultProps" @check-change="nodeClick" ></el-tree>
+            <div>  </div>
+            <!--<el-tree  ref="tree" :data="data" highlight-current show-checkbox node-key="yuekejuCode" :props="defaultProps" @check-change="nodeClick" ></el-tree>-->
         </el-aside>
         <el-main>
-            <el-form ref="form"  :rules="rules" :size="size" inline   :model="submitForm" :label-width="labelWidth">
+           <el-form :size="size" inline :label-width="labelWidth">
                 <el-form-item v-for='item in searchForm' :label="item.label" :key='item.prop'>
                     <!-- 输入框 -->
                     <el-input v-if="item.type==='Input'" v-model="searchData[item.prop]" size="mini" ></el-input>
@@ -18,7 +19,7 @@
                     </el-radio-group>
                     <!-- 单选按钮 -->
                     <el-radio-group v-if="item.type==='RadioButton'" v-model="searchData[item.prop]" @change="item.change && item.change(searchData[item.prop])">
-                    <el-radio-button v-for="ra in item.radios" :label="ra.value" :key="ra.value">{{ra.label}}</el-radio-button>
+                        <el-radio-button v-for="ra in item.radios" :label="ra.value" :key="ra.value">{{ra.label}}</el-radio-button>
                     </el-radio-group>
                     <!-- 复选框 -->
                     <el-checkbox-group v-if="item.type==='Checkbox'" v-model="searchData[item.prop]" >
@@ -35,12 +36,18 @@
                     <!-- 开关 -->
                     <el-switch v-if="item.type==='Switch'" v-model="searchData[item.prop]" ></el-switch>
                 </el-form-item>
-         </el-form>
-
+            </el-form>
+            <el-form inline v-if='isHandle'>
+                <el-form-item v-for='item in searchHandle' :key="item.label">
+                    <el-button :type="item.type" :size="item.size || size" @click='item.handle()'>{{item.label}}</el-button>
+                </el-form-item>
+    </el-form>
         </el-main>
     </el-container>
 </template>
+<stle>
 
+</stle>
 <script>
 export default {
     props: {
@@ -72,6 +79,10 @@ export default {
                 return {}
             }
 
+        },
+        rules: {
+            type: Array,
+            default: () => []
         }
     },
     data () {

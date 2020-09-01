@@ -11,34 +11,62 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var util = {};
-var initMethod = {};
-var initEven = {};
-var pageHandle = {
-  handlePageChange: function handlePageChange(_ref) {
-    var currentPage = _ref.currentPage,
-        pageSize = _ref.pageSize;
-    // 分页改变事件
-    this.tablePage.currentPage = currentPage;
-    this.tablePage.pageSize = pageSize;
-    this.loadData();
-  },
-  loadData: function loadData() {
-    // 加载数据
-    var self = this;
-    var searchParams = {
-      currentPage: this.tablePage.currentPage,
-      pageSize: this.tablePage.pageSize
-    };
-    self.$emit('loadtable', searchParams, this);
-  },
-  getTableObj: function getTableObj() {
-    var obj = null;
-    obj = this.$ref.refname;
-    return obj;
-  }
+var sexs = [{
+  label: '男',
+  value: 'M'
+}, {
+  label: '女',
+  value: 'F'
+}];
+var sexProps = {
+  label: 'label',
+  value: 'value'
 };
+var disable = [{
+  label: '禁用',
+  value: '0'
+}, {
+  label: '启用',
+  value: '1'
+}];
+var insertmanager = [{
+  type: 'Input',
+  label: '登录名',
+  prop: 'loginName',
+  width: '180px',
+  placeholder: '请输入登录名...'
+}, {
+  type: 'Input',
+  label: '姓名',
+  prop: 'name',
+  width: '180px',
+  placeholder: '请输入姓名...'
+}, {
+  type: 'Select',
+  label: '性别',
+  prop: 'sex',
+  width: '180px',
+  options: sexs,
+  props: sexProps,
+  change: function change(row) {
+    return '';
+  },
+  placeholder: '请选择性别...'
+}, {
+  type: 'Input',
+  label: '用户地址',
+  prop: 'userAdress',
+  width: '180px',
+  placeholder: '请输入用户地址...'
+}, {
+  type: 'Radio',
+  label: '禁用/启用',
+  prop: 'disableStatus',
+  width: '180px',
+  options: disable,
+  props: sexProps
+}];
 
-var _default = _objectSpread({}, util, {}, initMethod, {}, pageHandle, {}, initEven);
+var _default = _objectSpread({}, insertmanager);
 
 exports["default"] = _default;

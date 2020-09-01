@@ -2,7 +2,7 @@
     <el-card class="box-card">
         <div class="tools-bar">
             <el-button type="success" icon="el-icon-plus" size="small" @click="handleReset">新增角色</el-button>
-            <el-button type="primary" icon="el-icon-edit" size="small" @click="handleReset">修改角色</el-button>
+            <el-button type="primary" icon="el-icon-edit" size="small" @click="updateReset">修改角色</el-button>
             <el-button type="danger" icon="el-icon-delete" size="small" >删除角色</el-button>
         </div>
         <div>
@@ -88,10 +88,12 @@ export default {
             this.init()
         },
         handleReset: function() {
+            this.$router.push({ name: 'insertRole' })
+        },
+        updateReset: function() {
             var length = this.$refs.singleTable.selection.length
             if (length === 0 || length > 1) {
                 this.$message.error('请选择一条需要修改数据!')
-                return
             }
             var selection = this.$refs.multipleTable.selection[0]
             this.$router.push({ name: 'insertRole', params: { 'yuekejuCode': selection.yuekejuCode } })

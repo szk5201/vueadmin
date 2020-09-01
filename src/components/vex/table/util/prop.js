@@ -14,7 +14,7 @@ export default {
     tableToolBarButton: {
         type: Array,
         default: () => [
-            { code: 'insert_actived', name: '新增', status: 'primary', icon: 'fa fa-plus', visible: true },
+            { code: 'add_actived', name: '新增', status: 'primary', icon: 'fa fa-plus', visible: true },
             { code: 'update_actived', name: '修改', status: 'warning', icon: 'fa fa-plus', visible: true },
             { code: 'delete_actived', name: '删除', status: 'danger', icon: 'fa fa-plus', visible: true }
         ]
@@ -182,5 +182,13 @@ export default {
     keepSource: {
         type: Boolean,
         default: () => false
+    },
+    total: {
+        type: Number,
+        default: () => 0
+    },
+    tableFormData: {
+        type: Object,
+        default: () => { }
     }
 }
