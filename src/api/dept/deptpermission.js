@@ -5,11 +5,11 @@ export function findSearchDept(data) {
 }
 // 新增/修改组织机构
 export function insertDept(data) {
-    return axios.YuekejuPost('/v1/yuekejuDept/insertDept', data)
+    return axios.yuekejuPost('/v1/yuekejuDept/insertDept', data)
 }
 // 删除组织机构
 export function deleteDept(data) {
-    return axios.YuekejuPost('/v1/yuekejuDept/deleteDept', data)
+    return axios.yuekejuPost('/v1/yuekejuDept/deleteDept', data)
 }
 // 查询组织机构树
 export function findSearchDeptTree(data) {

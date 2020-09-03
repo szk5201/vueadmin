@@ -128,7 +128,7 @@ http.yuekejuGet = function(url, options) {
                     Message.error({
                         message: response.message
                     })
-                    reject(response.message)
+                    resolve(response.returnDate)
                 }
             })
             .catch(e => {

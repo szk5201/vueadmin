@@ -66,8 +66,6 @@ export default {
     },
     methods: {
         disableChanageEvent: function({ column, data }) {
-            console.log(column)
-            console.log(data)
             let params = {
                 yuekejuCode: data[0].yuekejuCode
 

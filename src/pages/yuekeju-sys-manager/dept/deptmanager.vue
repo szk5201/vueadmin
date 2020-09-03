@@ -20,6 +20,7 @@
            :tableFormData="formTableData"
            :tableData="tableData"
            @insertClick="insertClick"
+           @deleteClick="deleteClick"
            @formReset="reset"
            ref="reftable"
            >
@@ -35,13 +36,20 @@
               <el-form-item label="组织机构中文名" prop="deptCnName"><el-input v-model="from.deptCnName" /></el-form-item>
               <el-form-item label="上级组织机构" prop="deptParentName"><el-input v-model="from.deptParentName" readonly  class="parentId"   /></el-form-item>
               <el-form-item label="组织机构代码" prop="deptCode"><el-input v-model="from.deptCode" /></el-form-item>
-              <el-form-item label="排序" prop="deptOrderNumber"><el-input type="number" v-model="from.deptOrderNumber" /></el-form-item>
+              <el-form-item label="排序" prop="deptOrderNumber"><el-input type="number" v-model="from.deptOrderNum" /></el-form-item>
              <el-form-item label="是否启用">
                 <el-radio-group v-model="from.deptDisable">
                     <el-radio label="0">禁用</el-radio>
                     <el-radio label="1">启用</el-radio>
                 </el-radio-group>
             </el-form-item>
+             <el-form-item label="是否底级">
+                <el-radio-group v-model="from.isLeaf">
+                    <el-radio label="0">禁用</el-radio>
+                    <el-radio label="1">启用</el-radio>
+                </el-radio-group>
+            </el-form-item>
+            <el-form-item label="描述" prop="deptDescription"><el-input type="textarea" v-model="from.deptDescription" /></el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="dialogVisible = false">取 消</el-button>
@@ -92,9 +100,11 @@ export default {
                 deptParentId: '1001',
                 deptCode: '',
                 deptDisable: '1',
-                deptOrderNumber: 1,
+                deptOrderNum: 1,
                 deptParentName: '全部',
-                yuekejuCode: ''
+                yuekejuCode: '',
+                isLeaf: '1',
+                deptDescription: ''
             },
             rules: {
                 deptEnName: [{ required: true, message: '请输入英文名称', trigger: 'blur' },
@@ -144,6 +154,7 @@ export default {
             })
         },
         initTableData: function() {
+            console.log(this.search)
             findSearchDept(this.search).then(res => {
                 console.log(res)
                 this.tableData = res.records
@@ -163,23 +174,36 @@ export default {
                 })
                 .catch(_ => {})
         },
+        // 重置
         formReset: function() {
             this.$refs['froms'].resetFields()
         },
+        // 新增
         submitClick: function() {
             this.dialogVisible = false
-            this.formReset()
-        },
-        reset: function() {
-
+            insertDept(this.from).then(res => {
+                console.log(res)
+                this.$message({ type: 'success', message: '新增成功' })
+                this.init()
+                this.formReset()
+            })
         },
         nodeClick: function(e) {
             console.log(e)
         },
+        // 树节点改变
         currentChange: function(data, e) {
-            this.search.params = data.yuekejuCode
+            console.log('currentChange')
+            console.log(data)
+            this.search.params.deptParentId = data.yuekejuCode
             this.from.deptParentId = data.yuekejuCode
             this.from.deptParentName = data.deptCnName
+            this.initTableData()
+        },
+        isRepeatCheck: function(search) {
+            isRepeat(search).then(res => {
+                console.log(res)
+            })
         },
         validatorFunction: function(rule, value, callback) {
             let search = {}
@@ -194,9 +218,15 @@ export default {
             } else if (rule.field === 'deptCode') {
                 search.params.deptCode = value
             }
-            isRepeat(search).then(res => {
-                console.log(res)
-            })
+            this.isRepeatCheck(search)
+        },
+        // 删除
+        deleteClick: function(data, e) {
+            console.log(e)
+            console.log(data)
+        },
+        reset: function() {
+
         }
     }
 }
