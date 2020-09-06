@@ -4,9 +4,9 @@
             <el-tree
             ref="tree"
             :data="data"
-            highlight-current
             node-key="yuekejuCode"
             :props="defaultProps"
+            highlight-current
             empty-text='组织机构暂无数据'
              @check-change="nodeClick"
              @current-change="currentChange" ></el-tree>
@@ -22,6 +22,9 @@
            @insertClick="insertClick"
            @deleteClick="deleteClick"
            @formReset="reset"
+           @updateClick="updateClick"
+           @loadtable="loadtable"
+           @formSubmit="formSubmit"
            ref="reftable"
            >
            </basTable>
@@ -34,7 +37,7 @@
             <el-form :model="from" label-width="auto" :rules="rules" ref="froms">
               <el-form-item label="组织机构英文名" prop="deptEnName"><el-input v-model="from.deptEnName" /></el-form-item>
               <el-form-item label="组织机构中文名" prop="deptCnName"><el-input v-model="from.deptCnName" /></el-form-item>
-              <el-form-item label="上级组织机构" prop="deptParentName"><el-input v-model="from.deptParentName" readonly  class="parentId"   /></el-form-item>
+              <el-form-item label="上级组织机构" prop="parentName"><el-input v-model="from.parentName" readonly  class="parentId"   /></el-form-item>
               <el-form-item label="组织机构代码" prop="deptCode"><el-input v-model="from.deptCode" /></el-form-item>
               <el-form-item label="排序" prop="deptOrderNumber"><el-input type="number" v-model="from.deptOrderNum" /></el-form-item>
              <el-form-item label="是否启用">
@@ -45,8 +48,8 @@
             </el-form-item>
              <el-form-item label="是否底级">
                 <el-radio-group v-model="from.isLeaf">
-                    <el-radio label="0">禁用</el-radio>
-                    <el-radio label="1">启用</el-radio>
+                    <el-radio label="0">否</el-radio>
+                    <el-radio label="1">是</el-radio>
                 </el-radio-group>
             </el-form-item>
             <el-form-item label="描述" prop="deptDescription"><el-input type="textarea" v-model="from.deptDescription" /></el-form-item>
@@ -60,11 +63,13 @@
         </el-main>
     </el-container>
 </template>
-<style>
-
+<style scoped>
+.el-aside{
+    height: calc(100vh - 100px)
+}
 </style>
 <script>
-import { findSearchDept, findSearchDeptTree, isRepeat, insertDept, deleteDept } from '@/api/dept/deptpermission'
+import { findSearchDept, findSearchDeptTree, isRepeat, insertDept, deleteDept, disableFalseAndTrue } from '@/api/dept/deptpermission'
 export default {
 
     data() {
@@ -75,13 +80,13 @@ export default {
                 { type: 'checkbox', width: 60 },
                 { field: 'deptEnName', title: '组织机构英文名', sortable: true },
                 { field: 'deptCnName', title: '组织机构中文名' },
-                { field: 'deptParentName', title: '上级组织机构' },
+                { field: 'parentName', title: '上级组织机构' },
                 { field: 'deptCode', title: '组织机构代码', formatter: this.userLockStatus },
                 { field: 'createTime', title: '创建时间' },
                 { field: 'creater', title: '创建人' },
                 { field: 'updateTime', title: '修改时间' },
                 { field: 'modified', title: '修改人' },
-                { field: 'deptDisableStatus', title: '禁用/启用', cellRender: { name: '$switch', events: { change: this.disableChanageEvent } } }
+                { field: 'deptDisableSwitch', title: '禁用/启用', cellRender: { name: '$switch', events: { change: this.disableChanageEvent } } }
             ],
             tableFormConfig: [
                 { field: 'deptEnName', title: '英文名', itemRender: { name: 'input', attrs: { placeholder: '请输入英文名' } } },
@@ -101,10 +106,11 @@ export default {
                 deptCode: '',
                 deptDisable: '1',
                 deptOrderNum: 1,
-                deptParentName: '全部',
+                parentName: '全部',
                 yuekejuCode: '',
                 isLeaf: '1',
-                deptDescription: ''
+                deptDescription: '',
+                deptDisableSwitch: ''
             },
             rules: {
                 deptEnName: [{ required: true, message: '请输入英文名称', trigger: 'blur' },
@@ -156,9 +162,8 @@ export default {
         initTableData: function() {
             console.log(this.search)
             findSearchDept(this.search).then(res => {
-                console.log(res)
-                this.tableData = res.records
                 this.$refs.reftable.tablePage.total = res.total
+                this.tableData = res.records
             })
         },
         insertClick: function() {
@@ -180,10 +185,11 @@ export default {
         },
         // 新增
         submitClick: function() {
-            this.dialogVisible = false
             insertDept(this.from).then(res => {
-                console.log(res)
-                this.$message({ type: 'success', message: '新增成功' })
+                this.dialogVisible = false
+                this.$message({ type: 'success', message: res.message })
+                this.search.params.deptParentId = ''
+                this.search.params.currentPage = 1
                 this.init()
                 this.formReset()
             })
@@ -193,18 +199,18 @@ export default {
         },
         // 树节点改变
         currentChange: function(data, e) {
-            console.log('currentChange')
-            console.log(data)
             this.search.params.deptParentId = data.yuekejuCode
             this.from.deptParentId = data.yuekejuCode
-            this.from.deptParentName = data.deptCnName
+            this.from.parentName = data.deptCnName
             this.initTableData()
         },
+        // 数据验证
         isRepeatCheck: function(search) {
             isRepeat(search).then(res => {
                 console.log(res)
             })
         },
+        // toolbar
         validatorFunction: function(rule, value, callback) {
             let search = {}
             search.params = {}
@@ -222,11 +228,80 @@ export default {
         },
         // 删除
         deleteClick: function(data, e) {
-            console.log(e)
-            console.log(data)
+            let check = this.$refs.reftable.getCheckboxRecords()
+            if (check === null || typeof (check) === 'undefined' || check.length === 0) {
+                this.$message({
+                    type: 'error',
+                    message: '请选择一条或多条数据！'
+                })
+            } else {
+                this.$confirm('此操作将永久删除该数据, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    let yuekejuCode = []
+                    for (let i = 0; i < check.length; i++) {
+                        yuekejuCode[i] = check[i].yuekejuCode
+                    }
+                    deleteDept(yuekejuCode).then(res => {
+                        this.$message({ type: 'success', message: res.message })
+                        this.search.params.deptParentId = ''
+                        this.search.params.currentPage = 1
+                        this.init()
+                    })
+                })
+            }
         },
+        // 修改点击
+        updateClick: function() {
+            let check = this.$refs.reftable.getCheckboxRecords()
+            if (check === null || typeof (check) === 'undefined' || check.length === 0 || check.length > 1) {
+                this.$message({
+                    type: 'error',
+                    message: '请选择一条数据！'
+                })
+            } else {
+                this.dialogVisible = true
+                this.from = check[0]
+                this.from.isLeaf = this.from.isLeaf + ''
+                this.from.deptDisable = this.from.deptDisable + ''
+            }
+        },
+        // 重置
         reset: function() {
+            this.search.params.currentPage = 1
+            this.search.params.deptEnName = ''
+            this.search.params.deptCnName = ''
+            this.initTableData()
+        },
+        // 加载table
+        loadtable: function (obj, self) {
+            this.search.params.currentPage = obj.currentPage
+            this.search.params.pageSize = obj.pageSize
+            this.initTableData()
+        },
+        // 筛选查询
+        formSubmit: function(data, e) {
+            this.search.params.currentPage = 1
+            this.search.params.deptEnName = this.formTableData.deptEnName
+            this.search.params.deptCnName = this.formTableData.deptCnName
+            this.initTableData()
+        },
+        disableChanageEvent: function({ column, data }) {
+            let params = {
+                yuekejuCode: data[0].yuekejuCode
 
+            }
+            if (data[0].deptDisableSwitch) {
+                params.deptDisable = 1
+            } else {
+                params.deptDisable = 0
+            }
+            disableFalseAndTrue(params).then(res => {
+                console.log(res)
+                this.initTableData()
+            })
         }
     }
 }

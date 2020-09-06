@@ -128,7 +128,7 @@ http.yuekejuGet = function(url, options) {
                     Message.error({
                         message: response.message
                     })
-                    resolve(response.returnDate)
+                    // resolve(response.returnDate)
                 }
             })
             .catch(e => {
@@ -162,7 +162,7 @@ http.yuekejuPost = function(url, data, options) {
                     Message.error({
                         message: response.message
                     })
-                    reject(response.message)
+                    // reject(response.message)
                 }
             })
             .catch(e => {
@@ -198,7 +198,7 @@ http.yuekejuDelete = function(url, data, options) {
                     Message.error({
                         message: response.message
                     })
-                    reject(response.message)
+                    // reject(response.message)
                 }
             })
             .catch(e => {

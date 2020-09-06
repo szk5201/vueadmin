@@ -9,6 +9,7 @@ export function insertDept(data) {
 }
 // 删除组织机构
 export function deleteDept(data) {
+    console.log(data)
     return axios.yuekejuPost('/v1/yuekejuDept/deleteDept', data)
 }
 // 查询组织机构树
@@ -19,4 +20,8 @@ export function findSearchDeptTree(data) {
 export function isRepeat(data) {
     console.log(data)
     return axios.yuekejuGet('/v1/yuekejuDept/isRepeat', data)
+}
+// 禁用启用
+export function disableFalseAndTrue(data) {
+    return axios.yuekejuPost('/v1/yuekejuDept/disableFalseAndTrue', data)
 }

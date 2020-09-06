@@ -123,6 +123,9 @@ export default {
         formReset: function(data, e) {
             this.$emit('formReset', data, e)
         },
+        getCheckboxRecords: function() {
+            return this.$refs.refname.getCheckboxRecords()
+        },
         ...methodsconfig
     },
     props: {
