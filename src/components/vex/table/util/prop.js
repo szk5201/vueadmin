@@ -58,8 +58,9 @@ export default {
     height: {
         type: [String],
         default () {
-            return 'calc(70vh - 100 px)'
+            return '100%'
         }
+        // calc(70vh - 100 px)
     },
     // ellipsis（只显示省略号）,title（并且显示为原生 title）,tooltip（并且显示为 tooltip 提示）
     showOverflow: {
@@ -192,5 +193,11 @@ export default {
     tableFormData: {
         type: Object,
         default: () => { }
+    },
+    stripe: {
+        default: () => true
+    },
+    headerRowClassName: {
+        default: () => 'tableTitleVxeDefault'
     }
 }

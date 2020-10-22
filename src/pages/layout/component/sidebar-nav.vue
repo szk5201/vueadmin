@@ -1,5 +1,4 @@
 <template>
-
     <el-menu :collapse="isSidebarNavCollapse" background-color="#304156" text-color="#eee" active-text-color="#4dbcff"
         :default-active="currentMenu">
         <div class="menuTitle"> <!-- <img src="../../../assets/image/logo.jpg"> -->跃科聚管理系统 </div>

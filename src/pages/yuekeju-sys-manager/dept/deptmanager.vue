@@ -1,21 +1,24 @@
 <template>
     <el-container>
         <el-aside>
-            <el-tree
-            ref="tree"
-            :data="data"
-            node-key="yuekejuCode"
-            :props="defaultProps"
-            highlight-current
-            empty-text='组织机构暂无数据'
-             @check-change="nodeClick"
-             @current-change="currentChange" ></el-tree>
+           <div>
+             <el-tree
+                ref="tree"
+                :data="data"
+                node-key="yuekejuCode"
+                :props="defaultProps"
+                highlight-current
+                empty-text='组织机构暂无数据'
+                @check-change="nodeClick"
+                @current-change="currentChange" ></el-tree>
+           </div>
         </el-aside>
         <el-main>
            <basTable
            :tableColumnConfig="tableColumnConfig"
            :loading="loading"
            :border="border"
+           :height="height"
            :tableFormConfig="tableFormConfig"
            :tableFormData="formTableData"
            :tableData="tableData"
@@ -60,7 +63,6 @@
                 <el-button type="primary" @click="submitClick">确 定</el-button>
             </span>
             </el-dialog>
-
         </el-main>
     </el-container>
 </template>
@@ -145,7 +147,8 @@ export default {
                 children: 'childer',
                 label: 'deptCnName'
             },
-            border: 'default'
+            border: 'default',
+            height: '100%'
         }
     },
     mounted: function() {
@@ -291,12 +294,13 @@ export default {
             this.search.params.deptCnName = this.formTableData.deptCnName
             this.initTableData()
         },
-        disableChanageEvent: function({ column, data }) {
+        disableChanageEvent: function({ row }) {
             let params = {
-                yuekejuCode: data[0].yuekejuCode
+                yuekejuCode: row.yuekejuCode
 
             }
-            if (data[0].deptDisableSwitch) {
+            debugger
+            if (row.deptDisableSwitch) {
                 params.deptDisable = 1
             } else {
                 params.deptDisable = 0

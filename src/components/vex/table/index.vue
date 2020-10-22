@@ -1,5 +1,7 @@
 <template>
 <!-- export-config-->
+        <div style="height:100%">
+        <div>111111111111111111111111</div>
         <vxe-grid
           resizable
           :border="border"
@@ -30,6 +32,8 @@
           :valid-config="validConfig"
           :animat="animat"
           :zoom-config="zoomConfig"
+          :stripe="stripe"
+          :header-row-class-name= "headerRowClassName"
           ref="refname"
           :keep-source="keepSource"
           @toolbar-button-click="toolbarButtonClickEvent"
@@ -38,7 +42,14 @@
           @form-submit="formSubmit"
           @form-reset="formReset">
         </vxe-grid>
+        </div>
 </template>
+<style>
+.tableTitleVxeDefault{
+    background-color: #409eff;
+    color: black;
+}
+</style>
 <script>
 import propsConfig from './util/prop.js'
 import methodsconfig from './util/method.js'
