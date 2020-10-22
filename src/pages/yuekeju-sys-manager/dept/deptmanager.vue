@@ -38,6 +38,7 @@
               <el-form-item label="组织机构英文名" prop="deptEnName"><el-input v-model="from.deptEnName" /></el-form-item>
               <el-form-item label="组织机构中文名" prop="deptCnName"><el-input v-model="from.deptCnName" /></el-form-item>
               <el-form-item label="上级组织机构" prop="parentName"><el-input v-model="from.parentName" readonly  class="parentId"   /></el-form-item>
+              <el-form-item label="上级组织机构代码" prop="parentCode"><el-input v-model="from.parentCode" readonly  class="parentId"   /></el-form-item>
               <el-form-item label="组织机构代码" prop="deptCode"><el-input v-model="from.deptCode" /></el-form-item>
               <el-form-item label="排序" prop="deptOrderNumber"><el-input type="number" v-model="from.deptOrderNum" /></el-form-item>
              <el-form-item label="是否启用">
@@ -110,7 +111,8 @@ export default {
                 yuekejuCode: '',
                 isLeaf: '1',
                 deptDescription: '',
-                deptDisableSwitch: ''
+                deptDisableSwitch: '',
+                parentCode: ''
             },
             rules: {
                 deptEnName: [{ required: true, message: '请输入英文名称', trigger: 'blur' },
@@ -202,6 +204,7 @@ export default {
             this.search.params.deptParentId = data.yuekejuCode
             this.from.deptParentId = data.yuekejuCode
             this.from.parentName = data.deptCnName
+            this.from.parentCode = data.deptCode
             this.initTableData()
         },
         // 数据验证
